@@ -1,0 +1,39 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "title": "test",
+      "description": "test",
+      "preview": "",
+      "category": "test",
+      "price": 10,
+      "creation_date": "2023-10-16T11:37:23Z",
+      "last_change_date": "2023-10-16T11:37:25Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 8,
+    "fields": {
+      "title": "test",
+      "description": "test"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 9,
+    "fields": {
+      "title": "test1",
+      "description": "test1"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 10,
+    "fields": {
+      "title": "test2",
+      "description": "test2"
+    }
+  }
+]
