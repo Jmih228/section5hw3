@@ -1,0 +1,36 @@
+{% extends 'catalog/base.html' %}
+{% load custom_filters_and_tags %}
+
+{% block content %}
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Блог</h1>
+</div>
+
+<div class="container">
+    <div class="row text-center">
+        {%  for object in object_list %}
+            <div class="col-3">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">{{ object }}</h1>
+                        <p1 class="text-center">{{ object.content }}</p1><br>
+                        <div class="btn-group">
+                            <a href="{% url 'catalog:view' object.pk %}"
+                               class="btn btn-sm btn-outline-secondary">view</a>
+                            <a href="{% url 'catalog:edit' object.pk %}"
+                               class="btn btn-sm btn-outline-secondary">edit</a>
+                            <a href="{% url 'catalog:delete' object.pk %}"
+                               class="btn btn-sm btn-outline-danger">delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="col-12 mb-5" style="margin: 0px 0px 10px 10px">
+    <a class="btn btn-outline-primary" href="{% url 'catalog:create' %}">Добавить пост</a>
+</div>
+{% endblock %}

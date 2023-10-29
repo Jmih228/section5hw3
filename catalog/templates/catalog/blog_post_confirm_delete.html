@@ -1,0 +1,25 @@
+{% extends 'catalog/base.html' %}
+{% load custom_filters_and_tags %}
+
+{% block content %}
+
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p class="text">
+                            Вы действительно хотите удалить  пост "{{ object }}"?
+                        </p>
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                        <a href="{% url 'catalog:blog' %}" class="btn btn-outline-primary">Отмена</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

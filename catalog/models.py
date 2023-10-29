@@ -39,9 +39,16 @@ class Category(models.Model):
 class Blog_Post(models.Model):
 
     title = models.CharField(max_length=50, verbose_name='Заголовок')
-    slug = models.CharField(max_length=50, verbose_name='slug')
+    slug = models.CharField(max_length=50, verbose_name='slug', null=True, blank=True)
     content = models.TextField(verbose_name='Содержимое')
     preview = models.ImageField(upload_to='post_previews/', verbose_name='Превью', null=True, blank=True)
-    creation_date = models.DateTimeField(verbose_name='Дата создания')
-    is_published = models.BooleanField(verbose_name='Признак публикации')
-    views_count = models.BigIntegerField(verbose_name='Количество просмотров')
+    creation_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    is_published = models.BooleanField(default=True, verbose_name='Признак публикации')
+    views_count = models.BigIntegerField(default=0, verbose_name='Количество просмотров')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
