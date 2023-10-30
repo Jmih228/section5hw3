@@ -12,8 +12,8 @@ class Product(models.Model):
     preview = models.ImageField(upload_to='products/', verbose_name='Превью', null=True, blank=True)
     category = models.CharField(max_length=100, verbose_name='Категория')
     price = models.IntegerField(verbose_name='Цена')
-    creation_date = models.DateTimeField(verbose_name='Дата создания')
-    last_change_date = models.DateTimeField(verbose_name='Дата последнего изменения')
+    creation_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    last_change_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата последнего изменения')
 
 
     def __str__(self):
@@ -38,7 +38,7 @@ class Category(models.Model):
 
 class Blog_Post(models.Model):
 
-    title = models.CharField(max_length=50, verbose_name='Заголовок')
+    title = models.CharField(max_length=100, verbose_name='Заголовок')
     slug = models.CharField(max_length=50, verbose_name='slug', null=True, blank=True)
     content = models.TextField(verbose_name='Содержимое')
     preview = models.ImageField(upload_to='post_previews/', verbose_name='Превью', null=True, blank=True)
@@ -52,3 +52,22 @@ class Blog_Post(models.Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+
+
+class Version(models.Model):
+
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='Продукт')
+    version_number = models.CharField(max_length=50, verbose_name='Номер версии')
+    version_title = models.CharField(max_length=150, verbose_name='Название')
+    is_current_version = models.BooleanField(default=False, verbose_name='Признак текущей версии')
+
+    def __str__(self):
+        return self.version_title
+
+    @property
+    def active_version(self):
+        return Version.objects.filter(is_active=True, product_id=self.id).first()
+
+    class Meta:
+        verbose_name = 'Версия'
+        verbose_name_plural = 'Версии'

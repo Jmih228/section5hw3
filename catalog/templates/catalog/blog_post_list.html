@@ -16,11 +16,11 @@
                         <h1 class="card-title pricing-card-title">{{ object }}</h1>
                         <p1 class="text-center">{{ object.content }}</p1><br>
                         <div class="btn-group">
-                            <a href="{% url 'catalog:view' object.pk %}"
+                            <a href="{% url 'catalog:view_post' object.pk %}"
                                class="btn btn-sm btn-outline-secondary">view</a>
-                            <a href="{% url 'catalog:edit' object.pk %}"
+                            <a href="{% url 'catalog:edit_post' object.pk %}"
                                class="btn btn-sm btn-outline-secondary">edit</a>
-                            <a href="{% url 'catalog:delete' object.pk %}"
+                            <a href="{% url 'catalog:delete_post' object.pk %}"
                                class="btn btn-sm btn-outline-danger">delete</a>
                         </div>
                     </div>
@@ -31,6 +31,6 @@
 </div>
 
 <div class="col-12 mb-5" style="margin: 0px 0px 10px 10px">
-    <a class="btn btn-outline-primary" href="{% url 'catalog:create' %}">Добавить пост</a>
+    <a class="btn btn-outline-primary" href="{% url 'catalog:create_post' %}">Добавить пост</a>
 </div>
 {% endblock %}

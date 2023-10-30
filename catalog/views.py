@@ -2,7 +2,11 @@ from django.shortcuts import render
 from catalog.models import Product, Blog_Post
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 from django.urls import reverse_lazy, reverse
+from django.forms import inlineformset_factory
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from pytils.translit import slugify
+from catalog.forms import *
 # Create your views here.
 
 
@@ -21,8 +25,55 @@ def contacts(request):
 
 class GoodsListView(ListView):
     model = Product
-    template_name = 'catalog/products.html'
+    template_name = 'catalog/products_list.html'
     extra_context = {'title': 'Товары'}
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:products')
+
+
+class ProductDetailView(DetailView):
+    model = Product
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:products')
+    template_name = 'catalog/product_update_form.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        if self.request.method == 'POST':
+            context_data['formset'] = VersionFormset(self.request.POST, instance=self.object)
+        else:
+            context_data['formset'] = VersionFormset(instance=self.object)
+        return context_data
+
+    def form_valid(self, form):
+        formset = self.get_context_data()['formset']
+        self.object = form.save()
+
+        if formset.is_valid():
+            formset.instance = self.object
+            formset.save()
+
+        return super().form_valid(form)
+
+    @receiver(post_save, sender=Version)
+    def set_current_version(sender, instance, **kwargs):
+
+        if instance.is_current_version:
+            Version.objects.filter(product=instance.product).exclude(pk=instance.pk).update(is_current_version=False)
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:products')
 
 
 class BlogPostListView(ListView):

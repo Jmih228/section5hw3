@@ -1,0 +1,25 @@
+{% extends 'catalog/base.html' %}
+{% load custom_filters_and_tags %}
+
+{% block content %}
+
+<div class="col-12">
+    <div class="row">
+        <div class="col-6" style="margin: 0px 0px 10px 10px">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        {{ object }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p class="text">
+                        {{ object.description }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
