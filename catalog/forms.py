@@ -29,7 +29,7 @@ class ProductForm(forms.ModelForm):
 
         for word in ProductForm.exceptions_list:
             if word in cleaned_data:
-                raise forms.ValidationError(f'В названии и описании не должно содеражться слов: {", ".join(ProductForm.exceptions_list)}.')
+                raise forms.ValidationError(f'В названии и описании не должно содержаться слов: {", ".join(ProductForm.exceptions_list)}.')
 
         return cleaned_data
 
@@ -39,7 +39,7 @@ class ProductForm(forms.ModelForm):
         for word in ProductForm.exceptions_list:
             if word in cleaned_data:
                 raise forms.ValidationError(
-                    f'В названии и описании не должно содеражться слов: {",".join(ProductForm.exceptions_list)}.')
+                    f'В названии и описании не должно содержаться слов: {", ".join(ProductForm.exceptions_list)}.')
 
         return cleaned_data
 

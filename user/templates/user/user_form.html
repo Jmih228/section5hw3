@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+{% load custom_filters_and_tags %}
+
+{% block content %}
+
+    <div class="col-12">
+        <div class="col-12">
+            <form class="row" style="margin: 0px 0px 10px 10px" method="post" enctype="multipart/form-data">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>
+                                Профиль
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-success">Сохранить</button>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'user:verification'%}" class="btn btn-primary mb-2">Верификация</a><br>
+                            <a href="{% url 'user:new_password'%}" class="btn btn-danger">Сгенерировать пароль</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

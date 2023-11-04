@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from pytils.translit import slugify
 from catalog.forms import *
-# Create your views here.
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class ProductsListView(ListView):
@@ -29,17 +29,17 @@ class GoodsListView(ListView):
     extra_context = {'title': 'Товары'}
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
@@ -71,7 +71,7 @@ class ProductUpdateView(UpdateView):
             Version.objects.filter(product=instance.product).exclude(pk=instance.pk).update(is_current_version=False)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:products')
 

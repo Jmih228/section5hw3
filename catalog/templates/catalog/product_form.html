@@ -13,9 +13,11 @@
                     <div class="card-body">
                         <form method="post">
                             {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit" class="btn btn-success">Создать</button>
-                            <a href="{% url 'catalog:products' %}" class="btn btn-outline-primary">Отмена</a>
+                            {% if user.is_authenticated %}
+                                {{ form.as_p }}
+                                <button type="submit" class="btn btn-success">Создать</button>
+                                <a href="{% url 'catalog:products' %}" class="btn btn-outline-primary">Отмена</a>
+                            {% endif %}
                         </form>
                     </div>
                 </div>
