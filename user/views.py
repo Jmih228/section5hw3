@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 from user.models import User
 from django.views.generic import CreateView, UpdateView
 from user.forms import UserRegisterForm, UserProfileForm
@@ -42,3 +43,8 @@ class ProfileView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('user:login')

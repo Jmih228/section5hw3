@@ -15,8 +15,7 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена')
     creation_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     last_change_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата последнего изменения')
-    user = models.ForeignKey(User, default=14,  to_field='email', on_delete=models.CASCADE,
-                             verbose_name='владелец')
+    user = models.ForeignKey(User, default='', on_delete=models.CASCADE, verbose_name='владелец')
 
     def __str__(self):
         return self.title
