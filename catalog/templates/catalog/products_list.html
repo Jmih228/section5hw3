@@ -31,10 +31,17 @@
                     <div class="btn-group">
                         <a href="{% url 'catalog:view_product' object.pk %}"
                            class="btn btn-sm btn-outline-secondary">view</a>
+                        {% if request.user.id == object.user_id %}
                         <a href="{% url 'catalog:edit_product' object.pk %}"
                            class="btn btn-sm btn-outline-secondary">edit</a>
                         <a href="{% url 'catalog:delete_product' object.pk %}"
                            class="btn btn-sm btn-outline-danger">delete</a>
+                        {% else %}
+                            <a href="{% url 'catalog:view_product' object.pk %}"
+                           class="btn btn-sm btn-outline-secondary">edit</a>
+                        <a href="{% url 'catalog:view_product' object.pk %}"
+                           class="btn btn-sm btn-outline-danger">delete</a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="card-footer">

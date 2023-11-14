@@ -15,7 +15,7 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена')
     creation_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     last_change_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата последнего изменения')
-    user = models.ForeignKey(User, default='', on_delete=models.CASCADE, verbose_name='владелец')
+    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE, verbose_name='владелец')
 
     def __str__(self):
         return self.title
@@ -37,6 +37,7 @@ class Category(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
+
 class Blog_Post(models.Model):
 
     title = models.CharField(max_length=100, verbose_name='Заголовок')
@@ -46,7 +47,6 @@ class Blog_Post(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     is_published = models.BooleanField(default=True, verbose_name='Признак публикации')
     views_count = models.BigIntegerField(default=0, verbose_name='Количество просмотров')
-
 
     def __str__(self):
         return self.title
